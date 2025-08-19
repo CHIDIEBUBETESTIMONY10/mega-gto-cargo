@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cargo Tracking - Mega GTO</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon-32x32.png" type="image/png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#4B0082">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: #4b0082;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+    }
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 20px;
+      display: block;
+      transition: background 0.3s;
+      font-weight: 600;
+    }
+    .sidebar a:hover {
+      background-color: #6a0dad;
+    }
+    .sidebar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    /* Main content */
+    .main-content {
+      margin-left: 250px;
+      padding: 30px;
+      flex: 1;
+    }
+
+    .tracking-container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #4b0082;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    iframe {
+      border: none;
+      width: 100%;
+      height: 600px;
+      border-radius: 8px;
+    }
+
+    .text-muted {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .contact-info a { color: #4b0082; text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; }
+
+    #google_translate_element { display: none; }
+
+    @media(max-width:768px){
+      .sidebar { width: 100%; position: relative; }
+      .main-content { margin-left: 0; padding: 20px; }
+      .tracking-container { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">Mega GTO</div>
+    <a href="index.html">🏠 Home</a>
+    <a href="account.html">👤 My Account</a>
+    <a href="Services - Mega GTO.html">📦 Services</a>
+    <a href="Request Freight - Mega GTO.html">✈️ Request Freight</a>
+    <a href="Gallery Page.html">🖼 Gallery</a>
+    <a href="Testimonials Page.html">💬 Testimonials</a>
+    <a href="Contact Page with Live Google Map & Form.html">📍 Contact</a>
+    <a href="Blog.html">📰 Blog</a>
+    <a href="Certificates.html">📑 Certificates</a>
+    <a href="business-agent-signup.html">🤝 Become an Agent/Worker</a>
+    <a href="payment.html">💳 Payment Portal</a>
+    <a href="login.html">🔑 Login</a>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="tracking-container">
+      <h1>Track Your Shipment</h1>
+      <p class="text-center mb-4">You can track your cargo shipment directly using our airline partner portal below:</p>
+
+      <iframe src="https://www.ethiopianairlines.com/aa/cargo/track-and-trace" title="Ethiopian Cargo Tracking"></iframe>
+
+      <p class="mt-4 text-muted">
+        Need help? Contact us via:<br>
+        📞 <a href="https://wa.me/2348037232963">08037232963</a>,
+        <a href="https://wa.me/2348027227206">08027227206</a><br>
+        📧 <a href="mailto:megagtoa80@gmail.com">megagtoa80@gmail.com</a> (Nigerian Office)
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Mega GTO Int’l Cargo Ltd — RC: 1072358. All rights reserved.<br>
+    ZONE B BLK 14 SHOPS 50/52, ASPAMDA TRADE FAIR, LAGOS, NIGERIA.
+    <div class="contact-info mt-3">
+      <strong>Contact:</strong><br>
+      <u>Nigerian Office:</u><br>
+      📞 <a href="https://wa.me/2348037232963">08037232963</a>, <a href="https://wa.me/2348027227206">08027227206</a><br>
+      📧 <a href="mailto:megagtoa80@gmail.com">megagtoa80@gmail.com</a><br><br>
+      <u>Angola Office:</u><br>
+      📞 +244928677959, +244930358531<br>
+      📧 <a href="mailto:megagto99@gmail.com">megagto99@gmail.com</a>, <a href="mailto:tochuks_inv_co@yahoo.com">tochuks_inv_co@yahoo.com</a>
+    </div>
+    <a href="https://wa.me/2348037232963" target="_blank" title="Chat with us on WhatsApp" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+      <img src="Whatsapp Logo.png" alt="WhatsApp" style="width: 60px;">
+    </a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Google Translate -->
+  <div id="google_translate_element"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,pt,fr,es,de,zh-CN,ig,yo,ha',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>

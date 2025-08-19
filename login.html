@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mega GTO - Login</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Icons / Manifest -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4b0082, #6a0dad, #8e44ad);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    /* ---------- Login Box ---------- */
+    .login-box {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #4b0082;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+    input:focus {
+      border-color: #4b0082;
+      box-shadow: 0 0 8px rgba(75,0,130,0.3);
+      outline: none;
+    }
+
+    button {
+      width: 95%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 12px;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .signup-btn { background: #6a0dad; color: #fff; }
+    .signup-btn:hover { background: #520c91; transform: translateY(-2px); }
+    .signin-btn { background: #4b0082; color: #fff; }
+    .signin-btn:hover { background: #3a0069; transform: translateY(-2px); }
+    .logout-btn { background: #e74c3c; color: #fff; }
+    .logout-btn:hover { background: #c0392b; transform: translateY(-2px); }
+
+    #message {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+
+</head>
+<body>
+
+
+  <!-- Login Box -->
+  <div class="login-box">
+    <img src="Mega GTO Logo2.png" alt="Mega GTO Logo" class="logo">
+    <h2>🔒 Mega GTO Portal</h2>
+    <input type="email" id="email" placeholder="Enter your email" autocomplete="email" required>
+    <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+    
+    <button class="signup-btn" onclick="signUp()" aria-label="Create Account">Create Account</button>
+    <button class="signin-btn" onclick="signIn()" aria-label="Login">Login</button>
+    <button class="logout-btn" onclick="signOutUser()" aria-label="Logout">Log Out</button>
+    
+    <p id="message"></p>
+  </div>
+
+  <!-- Firebase Auth -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } 
+      from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBurpzqGtC4Ho1EaIISMtMsLwCVyurk7Bc",
+      authDomain: "mega-gto-cargo-authentication.firebaseapp.com",
+      projectId: "mega-gto-cargo-authentication",
+      storageBucket: "mega-gto-cargo-authentication.firebasestorage.app",
+      messagingSenderId: "942219066733",
+      appId: "1:942219066733:web:dea9ecb905fc583eb72e64",
+      measurementId: "G-83ZCGD3C7K"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Sign Up
+   
+
+    // Sign In
+    window.signIn = function() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+          document.getElementById("message").innerText = "✅ Welcome back " + userCredential.user.email;
+          setTimeout(() => { window.location.href = "index.html"; }, 1500);
+        })
+        .catch(error => {
+          document.getElementById("message").innerText = "❌ " + error.message;
+        });
+    };
+
+    // Log Out
+    window.signOutUser = function() {
+      signOut(auth)
+        .then(() => {
+          document.getElementById("message").innerText = "👋 Signed out successfully";
+        })
+        .catch(error => {
+          document.getElementById("message").innerText = "❌ " + error.message;
+        });
+    };
+  </script>
+
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
