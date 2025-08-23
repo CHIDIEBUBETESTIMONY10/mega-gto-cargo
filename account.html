@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Account - Mega GTO</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#4b0082;     /* Indigo */
+    --secondary:#6a0dad;   /* Purple */
+    --tertiary:#f5f5f5;    /* Light background */
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:'Nunito',sans-serif;background:var(--tertiary);margin:0;display:flex;min-height:100vh;color:#222;
+  }
+  /* Sidebar */
+  .sidebar{
+    width:260px;background:var(--primary);color:#fff;display:flex;flex-direction:column;padding:20px 0;position:fixed;inset:0 auto 0 0
+  }
+  .sidebar .logo{font-size:1.6rem;font-weight:800;text-align:center;margin-bottom:24px}
+  .sidebar a{color:#fff;text-decoration:none;padding:12px 20px;display:block;font-weight:700;border-left:4px solid transparent}
+  .sidebar a:hover{background:var(--secondary);border-left-color:#fff}
+  /* Main */
+  .main{margin-left:260px;flex:1;padding:28px}
+  h1{color:var(--primary);font-weight:800;margin-bottom:20px}
+  .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:20px}
+  .card{background:#fff;border-radius:14px;box-shadow:0 6px 16px rgba(0,0,0,.08);overflow:hidden}
+  .card-header{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;font-weight:800;padding:14px 18px}
+  .card-body{padding:18px}
+  /* Profile header */
+  .profile-wrap{display:flex;gap:18px;align-items:center}
+  .avatar{width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid var(--primary);position:relative;flex:0 0 auto;background:#e8e8ef;display:grid;place-items:center}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:none}
+  .avatar .initial{font-size:40px;font-weight:900;color:var(--primary)}
+  .keyrow{display:flex;justify-content:space-between;gap:14px;margin:6px 0}
+  .keyrow strong{color:var(--primary)}
+  input,select{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid #e5e7eb;margin-top:6px;margin-bottom:10px;font-size:.95rem;outline:none}
+  input:focus,select:focus{border-color:#b8a1ff;box-shadow:0 0 0 4px rgba(167,139,250,.22)}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .btn-primary{background:var(--primary);border:none;border-radius:10px;color:#fff;font-weight:800;padding:10px 16px}
+  .btn-primary:hover{background:#3a006a}
+  .btn-danger{background:#e74c3c;border:none;border-radius:10px;color:#fff;font-weight:800;padding:10px 16px}
+  .muted{color:#666;font-size:.92rem}
+  .table thead{background:#f1e9ff}
+  .badge-soft{background:var(--tertiary);border:1px solid var(--secondary);color:var(--secondary);font-weight:800}
+  .pill{padding:4px 10px;border-radius:999px;border:1px solid var(--secondary);color:var(--secondary);display:inline-block}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .toolbar .left, .toolbar .right{display:flex;gap:10px;flex-wrap:wrap}
+  footer{text-align:center;padding:30px 10px;font-size:14px;color:#999;background:#fff;margin-top:40px}
+  .contact-info a{color:var(--primary);text-decoration:none}
+  .contact-info a:hover{text-decoration:underline}
+  @media(max-width:1100px){.grid{grid-template-columns:1fr}}
+  @media(max-width:768px){.sidebar{position:relative;width:100%}.main{margin-left:0;padding:18px}}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="logo">Mega GTO</div>
+  <a href="index.html">🏠 Home</a>
+  <a href="account.html">👤 My Account</a>
+  <a href="Services - Mega GTO.html">📦 Services</a>
+  <a href="Request Freight - Mega GTO.html">✈️ Request Freight</a>
+  <a href="Cargo-Tracking.html">📦 Cargo Tracker</a>
+  <a href="payment.html">💳 Payment Portal</a>
+  <a href="login.html">🔑 Login</a>
+</aside>
+
+<!-- Main -->
+<div class="main">
+  <h1>My Account</h1>
+
+  <div class="grid">
+    <!-- Column A -->
+    <div class="col-a">
+      <!-- Profile Summary -->
+      <div class="card">
+        <div class="card-header">Profile Summary</div>
+        <div class="card-body">
+          <div class="profile-wrap">
+            <div class="avatar">
+              <img id="avatarImg" alt="Profile Photo">
+              <div class="initial" id="avatarInitial">?</div>
+            </div>
+            <div style="width:100%">
+              <div class="keyrow"><strong>Name</strong><div id="displayName">—</div></div>
+              <div class="keyrow"><strong>Email</strong><div id="userEmail">—</div></div>
+              <div class="keyrow"><strong>User ID</strong><div id="userUID">—</div></div>
+              <div class="keyrow"><strong>Phone</strong><div id="userPhone">—</div></div>
+              <div class="keyrow"><strong>Country</strong><div id="userCountry">—</div></div>
+              <div class="keyrow"><strong>Last Login</strong><div id="lastLogin">—</div></div>
+              <div class="keyrow"><strong>Created</strong><div id="createdAt">—</div></div>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn-primary" id="downloadData">⬇️ Download My Data</button>
+            <button class="btn-primary" id="sendVerify">✉️ Send Verification Email</button>
+            <button class="btn-primary" id="signOutBtn">🚪 Sign Out</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Profile -->
+      <div class="card">
+        <div class="card-header">Edit Profile</div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="nameInput">Display Name</label>
+              <input type="text" id="nameInput" placeholder="Your name" />
+            </div>
+            <div class="col-md-6">
+              <label for="phoneInput">Phone</label>
+              <input type="tel" id="phoneInput" placeholder="+234..." />
+            </div>
+            <div class="col-md-6">
+              <label for="countryInput">Country</label>
+              <input type="text" id="countryInput" placeholder="Nigeria" />
+            </div>
+            <div class="col-md-6">
+              <label for="photoInput">Profile Photo</label>
+              <input type="file" id="photoInput" accept="image/*" />
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn-primary" id="saveProfile">💾 Save Changes</button>
+            <button class="btn-danger" id="removePhoto">🗑 Remove Photo</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Password & Security -->
+      <div class="card">
+        <div class="card-header">Password & Security</div>
+        <div class="card-body">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword" placeholder="Enter new password" />
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Confirm password" />
+          <div class="actions">
+            <button class="btn-primary" id="changePassword">🔐 Change Password</button>
+          </div>
+          <p class="muted">Re‑authentication may be required if your session is old.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column B -->
+    <div class="col-b">
+      <!-- Preferences -->
+      <div class="card">
+        <div class="card-header">Preferences</div>
+        <div class="card-body">
+          <label for="notifications">Email Notifications</label>
+          <select id="notifications">
+            <option value="all">All Updates</option>
+            <option value="important">Important Only</option>
+            <option value="none">None</option>
+          </select>
+          <div class="actions">
+            <button class="btn-primary" id="savePrefs">💾 Save Preferences</button>
+          </div>
+          <p class="muted">Preferences are saved to your profile in Firestore.</p>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="card-header">Recent Activity</div>
+        <div class="card-body" id="activityLog">
+          <p class="muted">Loading activity…</p>
+        </div>
+      </div>
+
+      <!-- Cargo Requests History -->
+      <div class="card">
+        <div class="card-header">Cargo Requests History</div>
+        <div class="card-body">
+          <div class="toolbar">
+            <div class="left">
+              <span class="pill" id="totalRequests">0 Requests</span>
+            </div>
+            <div class="right">
+              <select id="filterStatus">
+                <option value="all">All</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <button class="btn-primary" id="refreshRequests">⟳ Refresh</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Tracking #</th>
+                  <th>Status</th>
+                  <th>Origin → Destination</th>
+                  <th>Weight</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody id="requestsTable"><tr><td colspan="5" class="muted">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 Mega GTO Int’l Cargo Ltd — RC: 1072358. All rights reserved.<br>
+  <div class="contact-info">
+    ZONE B BLK 14 SHOPS 50/52, ASPAMDA TRADE FAIR, LAGOS, NIGERIA.<br>
+    📞 <a href="https://wa.me/2348037232963">08037232963</a>, 
+    <a href="https://wa.me/2348027227206">08027227206</a><br>
+    📧 <a href="mailto:megagtoa80@gmail.com">megagtoa80@gmail.com</a><br>
+    Angolan Office: 📞 +244928677959, +244930358531<br>
+    📧 <a href="mailto:megagto99@gmail.com">megagto99@gmail.com</a>
+  </div>
+</footer>
+
+<!-- Firebase + App -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { 
+    getAuth, onAuthStateChanged, sendEmailVerification,
+    updateProfile, updatePassword, signOut
+  } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, setDoc, updateDoc,
+    collection, getDocs, query, where, orderBy, limit, addDoc, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+  import {
+    getStorage, ref, uploadBytes, getDownloadURL, deleteObject
+  } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+
+  // --- CONFIG (keep these; update only if your bucket name changes) ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyBurpzqGtC4Ho1EaIISMtMsLwCVyurk7Bc",
+    authDomain: "mega-gto-cargo-authentication.firebaseapp.com",
+    projectId: "mega-gto-cargo-authentication",
+    storageBucket: "mega-gto-cargo-authentication.appspot.com",
+    messagingSenderId: "942219066733",
+    appId: "1:942219066733:web:dea9ecb905fc583eb72e64",
+    measurementId: "G-83ZCGD3C7K"
+  };
+
+  // --- INIT ---
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  // --- HELPERS ---
+  const $ = (id)=>document.getElementById(id);
+  const logActivity = async (uid, action) => {
+    try{
+      await addDoc(collection(db, "users", uid, "activity"), {
+        action, timestamp: serverTimestamp()
+      });
+    }catch(e){ console.error("logActivity:", e); }
+  };
+  const setAvatar = (userDoc) => {
+    const img = $("avatarImg");
+    const init = $("avatarInitial");
+    const url = userDoc?.photoURL;
+    if(url){
+      img.src = url; img.style.display = "block"; init.style.display = "none";
+    }else{
+      img.style.display = "none"; init.style.display = "grid";
+    }
+  };
+
+  // --- AUTH STATE ---
+  onAuthStateChanged(auth, async (user) => {
+    if(!user){ window.location.href = "login.html"; return; }
+
+    // Fill top summary (Auth)
+    $("displayName").innerText = user.displayName || "—";
+    $("userEmail").innerText = user.email;
+    $("userUID").innerText = user.uid;
+    $("userPhone").innerText = user.phoneNumber || "—";
+    $("userCountry").innerText = "—"; // from Firestore
+    $("createdAt").innerText = user.metadata.creationTime || "—";
+    $("lastLogin").innerText = user.metadata.lastSignInTime || "—";
+    $("avatarInitial").innerText = (user.displayName?.[0] || "?").toUpperCase();
+
+    // Load profile (Firestore)
+    const userRef = doc(db, "users", user.uid);
+    const snap = await getDoc(userRef);
+    if(snap.exists()){
+      const d = snap.data();
+      if(d.name){ $("displayName").innerText = d.name; $("avatarInitial").innerText = d.name[0]?.toUpperCase() || "?"; }
+      if(d.phone) $("phoneInput").value = d.phone;
+      if(d.country) $("countryInput").value = d.country;
+      if(d.notifications) $("notifications").value = d.notifications;
+      setAvatar(d);
+    }else{
+      // ensure doc exists
+      await setDoc(userRef,{ email:user.email, createdAt: serverTimestamp() }, { merge:true });
+    }
+
+    // --- BUTTONS ---
+    // Save profile (name, phone, country, photo)
+    $("saveProfile").addEventListener("click", async ()=>{
+      try{
+        const name = $("nameInput").value || user.displayName || "";
+        const phone = $("phoneInput").value || "";
+        const country = $("countryInput").value || "";
+        let photoURL = null, photoPath = null;
+
+        const file = $("photoInput").files[0];
+        if(file){
+          // fixed path so new uploads overwrite old and we can delete easily
+          photoPath = `profilePhotos/${user.uid}/avatar`;
+          const photoRef = ref(storage, photoPath);
+          await uploadBytes(photoRef, file);
+          photoURL = await getDownloadURL(photoRef);
+        }
+
+        // Update Auth displayName/photo
+        await updateProfile(user, { displayName: name || null, photoURL: photoURL || user.photoURL || null });
+
+        // Update Firestore profile
+        const payload = { name, phone, country, lastUpdated: serverTimestamp() };
+        if(photoURL){ payload.photoURL = photoURL; payload.photoPath = photoPath; }
+        await setDoc(doc(db,"users",user.uid), payload, { merge:true });
+
+        $("displayName").innerText = name || "—";
+        $("avatarInitial").innerText = (name?.[0] || "?").toUpperCase();
+        if(photoURL){ setAvatar({photoURL}); }
+
+        alert("✅ Profile updated");
+        await logActivity(user.uid, "Updated profile");
+      }catch(err){
+        console.error(err); alert("❌ Could not save profile: " + err.message);
+      }
+    });
+
+    // Remove photo
+    $("removePhoto").addEventListener("click", async ()=>{
+      try{
+        const cur = await getDoc(doc(db, "users", user.uid));
+        const data = cur.data() || {};
+        if(data.photoPath){
+          try{ await deleteObject(ref(storage, data.photoPath)); }catch(e){ /* no-op if missing */ }
+        }
+        await updateProfile(user, { photoURL: null });
+        await updateDoc(doc(db, "users", user.uid), { photoURL: null, photoPath: null, lastUpdated: serverTimestamp() });
+        setAvatar(null);
+        alert("🗑 Profile photo removed");
+        await logActivity(user.uid, "Removed profile photo");
+      }catch(err){
+        console.error(err); alert("❌ Could not remove photo: " + err.message);
+      }
+    });
+
+    // Change password
+    $("changePassword").addEventListener("click", async ()=>{
+      const a = $("newPassword").value, b = $("confirmPassword").value;
+      if(!a || a !== b){ alert("Passwords do not match."); return; }
+      try{ await updatePassword(user, a); alert("🔐 Password updated"); await logActivity(user.uid, "Changed password"); }
+      catch(err){ alert("❌ " + err.message); }
+    });
+
+    // Verify email
+    $("sendVerify").addEventListener("click", async ()=>{
+      if(user.emailVerified){ alert("Your email is already verified."); return; }
+      try{ await sendEmailVerification(user); alert("✉️ Verification email sent"); await logActivity(user.uid, "Requested verification email"); }
+      catch(err){ alert("❌ " + err.message); }
+    });
+
+    // Download user data
+    $("downloadData").addEventListener("click", async ()=>{
+      try{
+        const profileSnap = await getDoc(doc(db,"users",user.uid));
+        const activitySnap = await getDocs(query(collection(db,"users",user.uid,"activity"), orderBy("timestamp","desc"), limit(25)));
+        const reqSnap = await getDocs(query(collection(db,"users",user.uid,"requests"), orderBy("createdAt","desc"), limit(50)));
+
+        const activity = [];
+        activitySnap.forEach(d=>activity.push(d.data()));
+        const requests = [];
+        reqSnap.forEach(d=>requests.push({id:d.id, ...d.data()}));
+
+        const payload = {
+          auth:{
+            uid:user.uid,phone:user.phone,email:user.email,emailVerified:user.emailVerified,
+            displayName:user.displayName||null, photoURL:user.photoURL||null,
+            creationTime:user.metadata.creationTime,lastSignInTime:user.metadata.lastSignInTime
+          },
+          profile: profileSnap.exists()? profileSnap.data() : {},
+          activity,
+          requests
+        };
+        const blob = new Blob([JSON.stringify(payload,null,2)], {type:"application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = `MegaGTO_UserData_${user.uid}.json`; a.click();
+        URL.revokeObjectURL(url);
+        await logActivity(user.uid, "Downloaded account data");
+      }catch(err){ alert("❌ " + err.message); }
+    });
+
+    // Save prefs
+    $("savePrefs").addEventListener("click", async ()=>{
+      try{
+        await setDoc(doc(db, "users", user.uid), { notifications: $("notifications").value, lastUpdated: serverTimestamp() }, { merge:true });
+        alert("✅ Preferences saved");
+        await logActivity(user.uid, "Updated preferences");
+      }catch(err){ alert("❌ " + err.message); }
+    });
+
+    // Sign out
+    $("signOutBtn").addEventListener("click", async ()=>{
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+
+    // --- LOAD ACTIVITY (latest 6) ---
+    const actEl = $("activityLog");
+    try{
+      const actQ = query(collection(db,"users",user.uid,"activity"), orderBy("timestamp","desc"), limit(6));
+      const s = await getDocs(actQ);
+      actEl.innerHTML = "";
+      if(s.empty){ actEl.innerHTML = "<p class='muted'>No recent activity.</p>"; }
+      else s.forEach(docu=>{
+        const d = docu.data();
+        const t = d.timestamp?.seconds ? new Date(d.timestamp.seconds*1000) : new Date();
+        const p = document.createElement("p");
+        p.innerHTML = `<span class="badge-soft">${t.toLocaleString()}</span> — ${d.action||"Activity"}`;
+        actEl.appendChild(p);
+      });
+    }catch(e){
+      actEl.innerHTML = "<p class='muted'>Could not load activity.</p>";
+    }
+
+    // --- LOAD REQUESTS TABLE ---
+    const renderRequests = async ()=>{
+      const tbody = $("requestsTable");
+      tbody.innerHTML = `<tr><td colspan="5" class="muted">Loading…</td></tr>`;
+      try{
+        let qBase = query(collection(db,"users",user.uid,"requests"), orderBy("createdAt","desc"), limit(100));
+        const status = $("filterStatus").value;
+        if(status !== "all"){ qBase = query(collection(db,"users",user.uid,"requests"), where("status","==",status), orderBy("createdAt","desc"), limit(100)); }
+        const snap = await getDocs(qBase);
+        tbody.innerHTML = "";
+        let count = 0;
+        snap.forEach(d=>{
+          const r = d.data(); count++;
+          const tr = document.createElement("tr");
+          const t = r.createdAt?.seconds ? new Date(r.createdAt.seconds*1000).toLocaleString() : "—";
+          tr.innerHTML = `
+            <td>${r.trackingNumber || d.id}</td>
+            <td><span class="pill">${r.status || "Pending"}</span></td>
+            <td>${r.origin || "—"} → ${r.destination || "—"}</td>
+            <td>${r.weight ? r.weight+" kg" : "—"}</td>
+            <td>${t}</td>`;
+          tbody.appendChild(tr);
+        });
+        if(count===0) tbody.innerHTML = `<tr><td colspan="5" class="muted">No requests found.</td></tr>`;
+        $("totalRequests").innerText = `${count} Requests`;
+      }catch(err){
+        console.error(err);
+        $("requestsTable").innerHTML = `<tr><td colspan="5" class="muted">Could not load requests.</td></tr>`;
+      }
+    };
+
+    $("filterStatus").addEventListener("change", renderRequests);
+    $("refreshRequests").addEventListener("click", renderRequests);
+    renderRequests();
+  });
+</script>
+</body>
+</html>
