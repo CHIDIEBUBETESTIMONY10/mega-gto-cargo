@@ -210,6 +210,52 @@
   }
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { 
+    getAuth, 
+    onAuthStateChanged,
+    EmailAuthProvider,
+    reauthenticateWithCredential 
+  } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBurpzqGtC4Ho1EaIISMtMsLwCVyurk7Bc",
+    authDomain: "mega-gto-cargo-authentication.firebaseapp.com",
+    projectId: "mega-gto-cargo-authentication",
+    storageBucket: "mega-gto-cargo-authentication.appspot.com",
+    messagingSenderId: "942219066733",
+    appId: "1:942219066733:web:dea9ecb905fc583eb72e64"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      // 🔄 Force Re-Login
+      const email = user.email;
+      const password = prompt("Please re-enter your password for verification:");
+
+      if (!password) {
+        alert("Verification required.");
+        return window.location.href = "login.html";
+      }
+
+      try {
+        const credential = EmailAuthProvider.credential(email, password);
+        await reauthenticateWithCredential(user, credential);
+        console.log("✅ Re-authenticated successfully");
+      } catch (err) {
+        console.error("❌ Re-authentication failed", err);
+        alert("Re-login failed. Redirecting...");
+        window.location.href = "login.html";
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
