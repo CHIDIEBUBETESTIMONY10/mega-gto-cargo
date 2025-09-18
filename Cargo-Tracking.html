@@ -75,13 +75,6 @@
       margin-bottom: 30px;
     }
 
-    iframe {
-      border: none;
-      width: 100%;
-      height: 600px;
-      border-radius: 8px;
-    }
-
     .text-muted {
       font-size: 0.9rem;
       text-align: center;
@@ -132,9 +125,15 @@
   <div class="main-content">
     <div class="tracking-container">
       <h1>Track Your Shipment</h1>
-      <p class="text-center mb-4">You can track your cargo shipment directly using our airline partner portal below:</p>
+      <p class="text-center mb-4">Enter your Airway Bill (AWB) / Tracking Number below:</p>
 
-      <iframe src="https://www.ethiopianairlines.com/aa/cargo/track-and-trace" title="Ethiopian Cargo Tracking"></iframe>
+      <!-- Tracking Form -->
+      <div class="tracking-form text-center mb-4">
+        <input type="text" id="trackingNumber" class="form-control mb-3" placeholder="Enter your Tracking / AWB Number">
+        <button class="btn btn-primary" onclick="trackShipment()">🔍 Track Shipment</button>
+      </div>
+
+      <div id="trackingResult" class="mt-4 text-center text-muted"></div>
 
       <p class="mt-4 text-muted">
         Need help? Contact us via:<br>
@@ -177,6 +176,71 @@
     }
   </script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- Shipment Tracker Script -->
+  <script>
+    function trackShipment() {
+      const trackingNumber = document.getElementById("trackingNumber").value.trim();
+      const resultBox = document.getElementById("trackingResult");
+
+      if (!trackingNumber) {
+        resultBox.innerHTML = "❌ Please enter a valid tracking number.";
+        return;
+      }
+
+      // Ethiopian Cargo tracking link
+      const url = `https://www.ethiopianairlines.com/aa/cargo/track-and-trace?awb=${trackingNumber}`;
+
+      // Redirect user
+      window.open(url, "_blank");
+    }
+  </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { 
+    getAuth, 
+    onAuthStateChanged,
+    EmailAuthProvider,
+    reauthenticateWithCredential 
+  } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBurpzqGtC4Ho1EaIISMtMsLwCVyurk7Bc",
+    authDomain: "mega-gto-cargo-authentication.firebaseapp.com",
+    projectId: "mega-gto-cargo-authentication",
+    storageBucket: "mega-gto-cargo-authentication.appspot.com",
+    messagingSenderId: "942219066733",
+    appId: "1:942219066733:web:dea9ecb905fc583eb72e64"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+    } else {
+      // 🔄 Force Re-Login
+      const email = user.email;
+      const password = prompt("Please re-enter your password for verification:");
+
+      if (!password) {
+        alert("Verification required.");
+        return window.location.href = "login.html";
+      }
+
+      try {
+        const credential = EmailAuthProvider.credential(email, password);
+        await reauthenticateWithCredential(user, credential);
+        console.log("✅ Re-authenticated successfully");
+      } catch (err) {
+        console.error("❌ Re-authentication failed", err);
+        alert("Re-login failed. Redirecting...");
+        window.location.href = "login.html";
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
